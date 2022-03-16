@@ -12,7 +12,7 @@ const List = () => {
   const getItem = useCallback(async () => {
     setIsLoading(true);
     const res = await axios.get(url);
-    const info = JSON.parse(res.data);
+    const info = res.data.body;
     if (info.response.length) {
       setData((prev) => [...prev, ...info.response]);
     } else {
@@ -43,7 +43,7 @@ const List = () => {
     let observer;
     if (loadRef.current) {
       observer = new IntersectionObserver(onIntersect, {
-        threshold: 0.4,
+        threshold: 0.5,
       });
       observer.observe(loadRef.current);
     }
@@ -51,24 +51,60 @@ const List = () => {
   }, [onIntersect]);
 
   return (
-    <div>
-      <header></header>
-      <ul>
+    <Container>
+      <header className="head">
+        <button>{'<'}</button>
+      </header>
+      <ItemBox>
         {data?.map((item, index) => {
           return (
-            <li key={index}>
-              <div>
+            <Item key={index}>
+              <Content>
                 <p>{item.fcNm}</p>
                 <p>{item.fcAddr}</p>
                 <p>{item.ref1}</p>
-              </div>
-            </li>
+              </Content>
+            </Item>
           );
         })}
-      </ul>
+      </ItemBox>
       <div ref={loadRef}>{isLoading && 'loading'}</div>
-    </div>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  ${({ theme }) => theme.common.flexCenterColumn};
+  font-size: ${({ theme }) => theme.fontSizes.small};
+  max-width: 800px;
+  .head {
+    width: 100%;
+    height: 25px;
+    display: flex;
+    justify-items: flex-start;
+    font-size: ${({ theme }) => theme.fontSizes.big};
+    button {
+      cursor: pointer;
+    }
+  }
+`;
+
+const ItemBox = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 2rem;
+`;
+
+const Item = styled.li`
+  background-color: ${({ theme }) => theme.colors.grey};
+  padding: 2rem;
+`;
+
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
 
 export default List;
