@@ -1,37 +1,28 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { BsFillPhoneVibrateFill, BsFillFileEarmarkTextFill } from 'react-icons/bs';
 import { GiBurningForest } from 'react-icons/gi';
 import { FaAddressCard } from 'react-icons/fa';
 import { useToastState } from '../hooks/useToastState';
+import { useDispatch } from 'react-redux';
+import { formActions } from '../store/form-slice';
 
-function Modal({
-  openModal,
-  isModify = false,
-  data = { name: '속리산숲체험휴양마을', address: '충청북도 보은군 속리산면 속리산로 596', phone: '043-540-3220' },
-}) {
+function Modal({ openModal, isModify, data }) {
   const [inputValue, setInputValue] = useState('');
   const modalRef = useRef(null);
   const inputRef = useRef(null);
   const handleToast = useToastState();
+  const dispatch = useDispatch();
 
   const handleToastShow = (title, isSuccess) => {
-    handleToast(title, isSuccess)
-  }
-
-  useEffect(() => {
-    inputRef.current.focus();
-  }, []);
+    handleToast(title, isSuccess);
+  };
 
   const changeHandle = (event) => {
     setInputValue(event.target.value);
   };
   const closeModal = (event) => {
-    // props openModal에 setState받아와야 함
     event.target === modalRef.current && openModal(false);
-    console.log(modalRef.current);
-    // event.target === modalRef.current ? console.log('닫힘') : console.log('안닫힘');
-    // openModal(false);
   };
   const handleKeyPress = (event) => {
     if (!isModify && inputValue && event.code === 'Enter') {
@@ -40,8 +31,14 @@ function Modal({
   };
   const handleSubmit = (e) => {
     if (inputValue) {
-      const newData = { ...data, memo: inputValue };
-      console.log(newData);
+      const newData = {
+        id: data.휴양림_명칭,
+        name: data.휴양림_명칭,
+        address: data.휴양림_주소,
+        number: data.전화번호,
+        memo: inputValue,
+      };
+      dispatch(formActions.addItem(newData));
       handleToastShow('저장을 성공하였습니다.', true);
       openModal(false);
     } else {
@@ -53,7 +50,7 @@ function Modal({
     openModal(false);
   };
   const handleModify = () => {
-    if(inputValue){
+    if (inputValue) {
       handleToastShow('수정을 성공하였습니다.', true);
       openModal(false);
     } else {
@@ -127,7 +124,6 @@ export default Modal;
 
 const Background = styled.div`
   ${({ theme }) => theme.common.flexCenter}
-  max-width: 800px;
   position: fixed;
   top: 0;
   left: 0;
@@ -141,14 +137,13 @@ const Wrapper = styled.div`
   ${({ theme }) => theme.common.flexCenterColumn}
   background-color: ${({ theme }) => theme.colors.white};
   position: absolute;
-  width: 70%;
+  max-width: 700px;
+  width: 80%;
   padding: 2.5rem 0;
   border-radius: 1rem;
   z-index: 998;
-  @media screen and (max-width: 414px) {
-    width: 90%;
-  }
 `;
+
 const NameBox = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.xSmall};
   width: 90%;
