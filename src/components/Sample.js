@@ -1,18 +1,33 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
-import { getRecreationForestData } from '../service/recreationForestApi';
+import { checkErrorStatus, getRecreationForestData } from '../service/api';
 
 const Sample = () => {
-  const getData = async () => {
-    const data = await getRecreationForestData(1, 10);
-    console.log(data, 'data');
+  const [recreationForest, setRecreationForest] = useState([]);
+  //데이터 불러오고 return 값 이용
+  const getDataUseReturnValue = async () => {
+    const response = await getRecreationForestData(1, 10).catch((error) => {
+      checkErrorStatus(error);
+    });
+    console.log(response, 'getDataUseReturnValue');
+    return response;
   };
-  getData();
+  //데이터 불러온 후 상태 변경
+  const getDataChangeState = useCallback(async () => {
+    await getRecreationForestData(1, 10)
+      .then((response) => setRecreationForest(response.data))
+      .catch((error) => {
+        checkErrorStatus(error);
+      });
+  }, []);
   return (
     <div>
       <BigText>Sample</BigText>
       <MiddleText>Sample</MiddleText>
       <SmallText>Sample</SmallText>
+      <button onClick={getDataChangeState}>네트워크 요청 후 상태 변경</button>
+      {console.log(recreationForest, 'recreationForest')}
+      <button onClick={getDataUseReturnValue}>네트워크 요청 후 리턴값 이용</button>
     </div>
   );
 };
