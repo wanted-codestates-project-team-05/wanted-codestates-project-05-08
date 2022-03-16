@@ -7,7 +7,7 @@ export const getRecreationForestData = async (page, perPage) => {
   };
   const response = await axios(config);
 
-  return response;
+  return response.data;
 };
 
 export const checkErrorStatus = (error) => {
