@@ -132,8 +132,8 @@ const ItemBox = styled.ul`
 `;
 
 const Item = styled.li`
-  background-color: #fea3a7;
   padding: 2rem;
+  border: 1px solid ${({ theme }) => theme.colors.darkGreen};
 `;
 
 const Content = styled.div`
