@@ -7,14 +7,16 @@ const List = () => {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [url, setUrl] = useState(`/pubdata/pubMapForest.do?numOfRows=10&pageNo=${page}`);
+  const [url, setUrl] = useState(
+    `/api/15099285/v1/uddi:57e7fc08-b32c-482d-8dc7-ab02864a70b7?page=${page}&perPage=10&serviceKey=${process.env.REACT_APP_API_KEY}`
+  );
 
   const getItem = useCallback(async () => {
     setIsLoading(true);
     const res = await axios.get(url);
-    const info = res.data.body;
-    if (info.response.length) {
-      setData((prev) => [...prev, ...info.response]);
+    const info = res.data.data;
+    if (info.length) {
+      setData((prev) => [...prev, ...info]);
     } else {
       loadRef.current.style.display = 'none';
     }
@@ -36,7 +38,9 @@ const List = () => {
   }, [getItem]);
 
   useEffect(() => {
-    setUrl(`/pubdata/pubMapForest.do?numOfRows=10&pageNo=${page}`);
+    setUrl(
+      `/api/15099285/v1/uddi:57e7fc08-b32c-482d-8dc7-ab02864a70b7?page=${page}&perPage=10&serviceKey=${process.env.REACT_APP_API_KEY}`
+    );
   }, [page]);
 
   useEffect(() => {
@@ -60,9 +64,9 @@ const List = () => {
           return (
             <Item key={index}>
               <Content>
-                <p>{item.fcNm}</p>
-                <p>{item.fcAddr}</p>
-                <p>{item.ref1}</p>
+                <p>{item['휴양림_명칭']}</p>
+                <p>{item['휴양림_주소']}</p>
+                <p>{item['전화번호']}</p>
               </Content>
             </Item>
           );
