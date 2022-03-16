@@ -2,10 +2,12 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = function (app) {
   app.use(
-    '/pubdata',
+    '/api',
     createProxyMiddleware({
-      target: 'https://www.chungbuk.go.kr/openapi-json',
-      changeOrigin: true,
+      target: 'http://apis.data.go.kr/6430000/cbRecreationalForestInfoService/getRecreationalForestInfo',
+      pathRewrite: {
+        '^/api': '',
+      },
     })
   );
 };
