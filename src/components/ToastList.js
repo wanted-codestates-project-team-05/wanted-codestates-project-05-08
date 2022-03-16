@@ -24,4 +24,5 @@ const Warpper = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
+	z-index: 999;
 `

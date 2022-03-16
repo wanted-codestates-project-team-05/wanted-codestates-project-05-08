@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { addToast, deleteToast } from '../temp/toastListSlice';
+import { addToast, deleteToast } from '../store/toastList-slice';
 
 export const useToastState = () => {
 

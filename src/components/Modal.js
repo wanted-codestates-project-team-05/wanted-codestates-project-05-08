@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { BsFillPhoneVibrateFill, BsFillFileEarmarkTextFill } from 'react-icons/bs';
 import { GiBurningForest } from 'react-icons/gi';
 import { FaAddressCard } from 'react-icons/fa';
+import { useToastState } from '../hooks/useToastState';
 
 function Modal({
   openModal,
@@ -12,6 +13,11 @@ function Modal({
   const [inputValue, setInputValue] = useState('');
   const modalRef = useRef(null);
   const inputRef = useRef(null);
+  const handleToast = useToastState();
+
+  const handleToastShow = (title, isSuccess) => {
+    handleToast(title, isSuccess)
+  }
 
   useEffect(() => {
     inputRef.current.focus();
@@ -22,23 +28,38 @@ function Modal({
   };
   const closeModal = (event) => {
     // props openModal에 setState받아와야 함
-    // event.target === modalRef.current && openModal(false);
+    event.target === modalRef.current && openModal(false);
     console.log(modalRef.current);
-    event.target === modalRef.current ? console.log('닫힘') : console.log('안닫힘');
+    // event.target === modalRef.current ? console.log('닫힘') : console.log('안닫힘');
+    // openModal(false);
   };
   const handleKeyPress = (event) => {
     if (!isModify && inputValue && event.code === 'Enter') {
       handleSubmit();
     }
   };
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
     if (inputValue) {
       const newData = { ...data, memo: inputValue };
       console.log(newData);
+      handleToastShow('저장을 성공하였습니다.', true);
+      openModal(false);
+    } else {
+      handleToastShow('메모를 입력해주세요.', false);
     }
   };
-  const handleDelete = () => console.log('삭제');
-  const handleModify = () => console.log('수정');
+  const handleDelete = () => {
+    handleToastShow('삭제를 성공하였습니다.', true);
+    openModal(false);
+  };
+  const handleModify = () => {
+    if(inputValue){
+      handleToastShow('수정을 성공하였습니다.', true);
+      openModal(false);
+    } else {
+      handleToastShow('메모를 입력해주세요.', false);
+    }
+  };
 
   return (
     <Background ref={modalRef} onClick={closeModal}>
@@ -48,21 +69,21 @@ function Modal({
             <GiBurningForest className="icon" />
             이름
           </Name>
-          <Contents>{data.name}</Contents>
+          <Contents>{data.휴양림_명칭}</Contents>
         </NameBox>
         <NameBox>
           <Name>
             <FaAddressCard className="icon" />
             주소
           </Name>
-          <Contents>{data.address}</Contents>
+          <Contents>{data.휴양림_주소}</Contents>
         </NameBox>
         <NameBox>
           <Name>
             <BsFillPhoneVibrateFill className="icon" />
             연락처
           </Name>
-          <Contents>{data.phone}</Contents>
+          <Contents>{data.전화번호}</Contents>
         </NameBox>
         <Memo>
           <Name>
@@ -114,7 +135,7 @@ const Background = styled.div`
   right: 0;
   margin: 0 auto;
   background: rgba(0, 0, 0, 0.4);
-  z-index: 999;
+  z-index: 10;
 `;
 const Wrapper = styled.div`
   ${({ theme }) => theme.common.flexCenterColumn}
