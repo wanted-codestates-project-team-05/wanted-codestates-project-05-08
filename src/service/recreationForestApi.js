@@ -1,13 +1,13 @@
-export const getRecreationForestData = (page, numberOfData) => {
+export const getRecreationForestData = async (page, numberOfData) => {
   const axios = require('axios');
 
   const config = {
     method: 'get',
-    url: `/api?serviceKey=${process.env.REACT_APP_API_KEY}&currentPage=${page}&perPage=${numberOfData}&NM=&LC=`,
+    url: `/api?page=1&perPage=10&serviceKey=KFpltfvLCQrqqBhzue4pwPwMO3F75DdoemMKE0Oaqibiq1Ejx0FFTxaTiPtdfQ0zsze30RtPqon1pKifxQzEUw%3D%3D`,
     headers: {},
   };
 
-  axios(config)
+  await axios(config)
     .then((response) => {
       console.log(response.data, 'api');
       return response.data;

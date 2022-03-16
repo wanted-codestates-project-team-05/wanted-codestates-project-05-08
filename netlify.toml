@@ -1,6 +1,6 @@
 [[redirects]]
     from = "/api/*"
-    to = "http://apis.data.go.kr/6430000/cbRecreationalForestInfoService/getRecreationalForestInfo:splat"
+    to = "https://api.odcloud.kr/api/15099285/v1/uddi:57e7fc08-b32c-482d-8dc7-ab02864a70b7:splat"
     status = 200
 
 [[redirects]]

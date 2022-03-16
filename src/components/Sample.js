@@ -1,7 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import { getRecreationForestData } from '../service/recreationForestApi';
 
 const Sample = () => {
+  const getData = async () => {
+    const data = await getRecreationForestData(1, 10);
+    console.log(data, 'data');
+  };
+  getData();
   return (
     <div>
       <BigText>Sample</BigText>
