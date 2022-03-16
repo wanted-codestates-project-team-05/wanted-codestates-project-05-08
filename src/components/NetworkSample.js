@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { checkErrorStatus, getRecreationForestData } from '../service/api';
 
-const Sample = () => {
+const NetworkSample = () => {
   const [recreationForest, setRecreationForest] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -57,7 +57,7 @@ const Sample = () => {
   );
 };
 
-export default Sample;
+export default NetworkSample;
 
 const Wrap = styled.div`
   width: 100vw;

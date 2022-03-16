@@ -1,6 +1,5 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import Sample from './components/Sample';
 import theme from './theme';
 import GlobalStyle from './GlobalStyle';
 import List from './pages/List';
