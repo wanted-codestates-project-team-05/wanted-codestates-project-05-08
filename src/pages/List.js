@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import ReactLoading from 'react-loading';
 
 const List = () => {
   const loadRef = useRef(null);
@@ -47,7 +48,7 @@ const List = () => {
     let observer;
     if (loadRef.current) {
       observer = new IntersectionObserver(onIntersect, {
-        threshold: 0.5,
+        threshold: 1,
       });
       observer.observe(loadRef.current);
     }
@@ -72,7 +73,7 @@ const List = () => {
           );
         })}
       </ItemBox>
-      <div ref={loadRef}>{isLoading && 'loading'}</div>
+      <div ref={loadRef}>{isLoading && <ReactLoading type={'spin'} color={'blue'} height={150} width={150} />}</div>
     </Container>
   );
 };
