@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { getRecreationForestData } from '../service/recreationForestApi';
 
 const Sample = () => {
   return (

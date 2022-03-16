@@ -8,10 +8,11 @@ export const getRecreationForestData = (page, numberOfData) => {
   };
 
   axios(config)
-    .then(function (response) {
-      console.log(response.data);
+    .then((response) => {
+      console.log(response.data, 'api');
+      return response.data;
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.log(error);
     });
 };
