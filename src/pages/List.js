@@ -2,12 +2,16 @@ import axios from 'axios';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import ReactLoading from 'react-loading';
+import Modal from '../components/Modal';
+import { ToastList } from '../components/ToastList';
 
 const List = () => {
   const loadRef = useRef(null);
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isModal, setIsModal] = useState(false);
+  const [singleData, setSingleData] = useState();
   const [url, setUrl] = useState(
     `/api/15099285/v1/uddi:57e7fc08-b32c-482d-8dc7-ab02864a70b7?page=${page}&perPage=10&serviceKey=${process.env.REACT_APP_API_KEY}`
   );
@@ -55,8 +59,16 @@ const List = () => {
     return () => observer && observer.disconnect();
   }, [onIntersect]);
 
+  const handleSingleData = (data) => {
+    console.log(data)
+    setSingleData(data)
+    setIsModal(true)
+  }
+
   return (
     <Container>
+    <ToastList/>
+    {isModal && <Modal openModal={setIsModal} data={singleData}/>}
       <header className="head">
         <button>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -67,7 +79,7 @@ const List = () => {
       <ItemBox>
         {data?.map((item, index) => {
           return (
-            <Item key={index}>
+            <Item key={index} onClick={() => handleSingleData(item)}>
               <Content>
                 <p>{item['휴양림_명칭']}</p>
                 <p>{item['휴양림_주소']}</p>
