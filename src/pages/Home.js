@@ -15,7 +15,6 @@ const Home = () => {
   const dataList = useSelector((state) => state.form);
   const item = dataList.items.filter((it) => it[searchkey].includes(searchInputValue));
   const handleSingleData = (data) => {
-    console.log(data);
     setSingleData(data);
     setIsModal(true);
   };
