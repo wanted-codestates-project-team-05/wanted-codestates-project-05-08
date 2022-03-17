@@ -10,16 +10,14 @@ const SearchInp = (props) => {
   };
 
   const handleSearchKeyup = (e) => {
-    if (e.keyCode === 13 && search.length >= 1) {
+    if (e.keyCode === 13) {
       props.setSearchInputValue(search);
     }
   };
-  
-  const handleClickSearch = () => { 
-    if (search.length >= 1) { 
-      props.setSearchInputValue(search);
-    }
-  }
+
+  const handleClickSearch = () => {
+    props.setSearchInputValue(search);
+  };
 
   return (
     <>
@@ -43,12 +41,10 @@ const Input = styled.input`
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 `;
 
-
 const SearchIcon = styled.div`
   position: absolute;
   right: 15px;
   cursor: pointer;
 `;
-
 
 export default SearchInp;
