@@ -1,11 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import theme from '../theme';
+import { useNavigate } from 'react-router-dom';
 
 const Button = () => {
+  const navigate = useNavigate();
+
+  const handleClickRoute = () => { 
+    navigate('/list');
+  }
+
   return (
     <>
-      <ButtonBox>
+      <ButtonBox onClick={handleClickRoute}>
         <span>+</span>
       </ButtonBox>
     </>
