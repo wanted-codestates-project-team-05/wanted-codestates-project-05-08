@@ -32,9 +32,9 @@ const List = ({ handleToast }) => {
       setError(checkErrorStatus(err));
       setTimeout(() => {
         setError('');
-      }, 1500);
-      loadRef.current.style.display = 'none';
-      setIsLoading(false);
+        loadRef.current.style.display = 'none';
+        setIsLoading(false);
+      }, 3000);
     }
   }, [page]);
 
@@ -111,7 +111,7 @@ const List = ({ handleToast }) => {
           <ErrorFeedBack>{error}</ErrorFeedBack>
         </FeedBackWrap>
       )}
-      <Load ref={loadRef}>{isLoading && <Circle />}</Load>
+      <Load ref={loadRef}>{isLoading && !error && <Circle />}</Load>
     </Container>
   );
 };
@@ -197,7 +197,7 @@ const Load = styled.div`
 
 const FeedBackWrap = styled.div`
   width: 100%;
-  animation: fade-in 1.5s;
+  animation: fade-in 3s;
   @keyframes fade-in {
     0% {
       opacity: 0;
