@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { BsFillPhoneVibrateFill, BsFillFileEarmarkTextFill } from 'react-icons/bs';
 import { GiBurningForest } from 'react-icons/gi';
@@ -15,7 +15,9 @@ function Modal({ openModal, isModify, data }) {
   const inputRef = useRef(null);
   const handleToast = useToastState();
   const dispatch = useDispatch();
-
+  useEffect(() => {
+    if (data.memo) setInputValue(data.memo);
+  }, [data.memo]);
   const handleToastShow = (title, isSuccess) => {
     handleToast(title, isSuccess);
   };
@@ -50,7 +52,9 @@ function Modal({ openModal, isModify, data }) {
   };
   const handleDelete = () => {
     handleToastShow('삭제를 성공하였습니다.', true);
-    openModal(false);
+    console.log(data.id);
+    dispatch(formActions.removeItem({ id: data.id }));
+    // openModal(false);
   };
   const handleModify = () => {
     if (inputValue) {
@@ -69,21 +73,21 @@ function Modal({ openModal, isModify, data }) {
             <GiBurningForest className="icon" />
             이름
           </Name>
-          <Contents>{data.휴양림_명칭}</Contents>
+          <Contents>{data.name ? data.name : data.휴양림_명칭}</Contents>
         </NameBox>
         <NameBox>
           <Name>
             <FaAddressCard className="icon" />
             주소
           </Name>
-          <Contents>{data.휴양림_주소}</Contents>
+          <Contents>{data.address ? data.address : data.휴양림_주소}</Contents>
         </NameBox>
         <NameBox>
           <Name>
             <BsFillPhoneVibrateFill className="icon" />
             연락처
           </Name>
-          <Contents>{data.전화번호}</Contents>
+          <Contents>{data.number ? data.number : data.전화번호}</Contents>
         </NameBox>
         <Memo>
           <Name>
