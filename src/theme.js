@@ -18,6 +18,8 @@ const fontSizes = {
   big: pixelToRem(35),
   middle: pixelToRem(30),
   small: pixelToRem(25),
+  xSmall: pixelToRem(20),
+  xxSmall: pixelToRem(15),
 };
 
 // color
@@ -38,13 +40,13 @@ const colors = {
 const common = {
   flexCenter: `
     display: flex;
-    justify-contents: center;
+    justify-content: center;
     align-items: center;
   `,
   flexCenterColumn: `
     display: flex;
     flex-direction: column;
-    justify-contents: center;
+    justify-content: center;
     align-items: center;
   `,
 };
