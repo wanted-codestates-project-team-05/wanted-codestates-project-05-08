@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import ReactLoading from 'react-loading';
 import Modal from '../components/Modal';
-import { ToastList } from '../components/ToastList';
 
 const List = () => {
   const loadRef = useRef(null);
@@ -67,8 +66,7 @@ const List = () => {
 
   return (
     <Container>
-      <ToastList />
-      {isModal && <Modal openModal={setIsModal} data={singleData} />}
+      {isModal && <Modal openModal={setIsModal} data={singleData} isModify={false} />}
       <header className="head">
         <button>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { BsFillPhoneVibrateFill, BsFillFileEarmarkTextFill } from 'react-icons/bs';
 import { GiBurningForest } from 'react-icons/gi';
@@ -6,14 +6,18 @@ import { FaAddressCard } from 'react-icons/fa';
 import { useToastState } from '../hooks/useToastState';
 import { useDispatch } from 'react-redux';
 import { formActions } from '../store/form-slice';
-
+import { useNavigate } from 'react-router-dom';
 function Modal({ openModal, isModify, data }) {
+  const navigation = useNavigate();
+  console.log(data);
   const [inputValue, setInputValue] = useState('');
   const modalRef = useRef(null);
   const inputRef = useRef(null);
   const handleToast = useToastState();
   const dispatch = useDispatch();
-
+  useEffect(() => {
+    if (data.memo) setInputValue(data.memo);
+  }, [data.memo]);
   const handleToastShow = (title, isSuccess) => {
     handleToast(title, isSuccess);
   };
@@ -32,7 +36,7 @@ function Modal({ openModal, isModify, data }) {
   const handleSubmit = (e) => {
     if (inputValue) {
       const newData = {
-        id: data.휴양림_명칭,
+        id: data.전화번호,
         name: data.휴양림_명칭,
         address: data.휴양림_주소,
         number: data.전화번호,
@@ -41,13 +45,16 @@ function Modal({ openModal, isModify, data }) {
       dispatch(formActions.addItem(newData));
       handleToastShow('저장을 성공하였습니다.', true);
       openModal(false);
+      navigation('/');
     } else {
       handleToastShow('메모를 입력해주세요.', false);
     }
   };
   const handleDelete = () => {
     handleToastShow('삭제를 성공하였습니다.', true);
-    openModal(false);
+    console.log(data.id);
+    dispatch(formActions.removeItem(data.id));
+    // openModal(false);
   };
   const handleModify = () => {
     if (inputValue) {
@@ -66,21 +73,21 @@ function Modal({ openModal, isModify, data }) {
             <GiBurningForest className="icon" />
             이름
           </Name>
-          <Contents>{data.휴양림_명칭}</Contents>
+          <Contents>{data.name ? data.name : data.휴양림_명칭}</Contents>
         </NameBox>
         <NameBox>
           <Name>
             <FaAddressCard className="icon" />
             주소
           </Name>
-          <Contents>{data.휴양림_주소}</Contents>
+          <Contents>{data.address ? data.address : data.휴양림_주소}</Contents>
         </NameBox>
         <NameBox>
           <Name>
             <BsFillPhoneVibrateFill className="icon" />
             연락처
           </Name>
-          <Contents>{data.전화번호}</Contents>
+          <Contents>{data.number ? data.number : data.전화번호}</Contents>
         </NameBox>
         <Memo>
           <Name>
