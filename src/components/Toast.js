@@ -24,6 +24,7 @@ const Container = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	font-size: ${() => theme.fontSizes.xSmall};
 
 	@keyframes In {
 		from { transform: translate3d(-100%, 0, 0); opacity: 0; }
