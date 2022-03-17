@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import ReactLoading from 'react-loading';
@@ -10,6 +9,7 @@ import { getRecreationForestData, checkErrorStatus } from '../service/api';
 const List = () => {
   const navigate = useNavigate();
   const loadRef = useRef(null);
+  const observerRef = useRef(null);
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -47,18 +47,16 @@ const List = () => {
   }, [getItem]);
 
   useEffect(() => {
-    let observer;
     if (loadRef.current) {
-      observer = new IntersectionObserver(onIntersect, {
+      observerRef.current = new IntersectionObserver(onIntersect, {
         threshold: 1,
       });
-      observer.observe(loadRef.current);
+      observerRef.current.observe(loadRef.current);
     }
-    return () => observer && observer.disconnect();
+    return () => observerRef.current && observerRef.current.disconnect();
   }, [onIntersect]);
 
   const handleSingleData = (data) => {
-    console.log(data);
     setSingleData(data);
     setIsModal(true);
   };
