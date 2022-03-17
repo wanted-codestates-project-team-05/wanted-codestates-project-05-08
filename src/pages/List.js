@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
-import ReactLoading from 'react-loading';
+import styled, { css } from 'styled-components';
 import Modal from '../components/Modal';
+import ReactLoading from 'react-loading';
 import { ToastList } from '../components/ToastList';
 import { useNavigate } from 'react-router';
 import { getRecreationForestData, checkErrorStatus } from '../service/api';
@@ -12,6 +12,7 @@ const List = () => {
   const observerRef = useRef(null);
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
+  const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isModal, setIsModal] = useState(false);
   const [singleData, setSingleData] = useState();
@@ -27,7 +28,11 @@ const List = () => {
         loadRef.current.style.display = 'none';
       }
     } catch (err) {
-      checkErrorStatus(err);
+      setError(checkErrorStatus(err));
+      setTimeout(() => {
+        setError('');
+      }, 1500);
+      loadRef.current.style.display = 'none';
     }
     setIsLoading(false);
   }, [page]);
@@ -99,6 +104,11 @@ const List = () => {
           );
         })}
       </ItemBox>
+      {error && (
+        <FeedBackWrap>
+          <ErrorFeedBack>{error}</ErrorFeedBack>
+        </FeedBackWrap>
+      )}
       <Load ref={loadRef}>{isLoading && <ReactLoading type={'spin'} color={'blue'} height={100} width={100} />}</Load>
     </Container>
   );
@@ -163,6 +173,36 @@ const Content = styled.div`
 
 const Load = styled.div`
   height: 100px;
+`;
+
+const FeedBackWrap = styled.div`
+  width: 100%;
+  animation: fade-in 1.5s;
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  } ;
+`;
+
+const feedBackStyle = css`
+  margin: auto;
+  padding: 10px;
+  border-radius: 10px;
+  color: ${({ theme }) => theme.colors.white};
+  font-size: ${({ theme }) => theme.fontSizes.small};
+  text-align: center;
+`;
+
+const ErrorFeedBack = styled.div`
+  ${feedBackStyle};
+  background-color: ${({ theme }) => theme.colors.red};
 `;
 
 export default List;
