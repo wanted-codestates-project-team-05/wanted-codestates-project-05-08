@@ -2,9 +2,9 @@ export const getRecreationForestData = async (page, perPage) => {
   const axios = require('axios');
   const config = {
     method: 'get',
-    // url: `https://api.odcloud.kr/api/15099285/v1/uddi:57e7fc08-b32c-482d-8dc7-ab02864a70b7?page=${page}&perPage=${perPage}&serviceKey=${process.env.REACT_APP_API_KEY}`,
+    url: `https://api.odcloud.kr/api/15099285/v1/uddi:57e7fc08-b32c-482d-8dc7-ab02864a70b7?page=${page}&perPage=${perPage}&serviceKey=${process.env.REACT_APP_API_KEY}`,
     //인증 정보 오류 text url
-    url: `https://api.odcloud.kr/api/15099285/v1/uddi:57e7fc08-b32c-482d-8dc7-ab02864a70b7?page=${page}&perPage=${perPage}&serviceKey=`,
+    // url: `https://api.odcloud.kr/api/15099285/v1/uddi:57e7fc08-b32c-482d-8dc7-ab02864a70b7?page=${page}&perPage=${perPage}&serviceKey=`,
   };
   const response = await axios(config);
   return response.data;
