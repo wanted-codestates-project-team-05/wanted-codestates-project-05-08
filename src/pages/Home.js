@@ -14,9 +14,6 @@ const Home = () => {
   const [singleData, setSingleData] = useState();
   const dataList = useSelector((state) => state.form);
   const item = dataList.items.filter((it) => it[searchkey].includes(searchInputValue));
-  useEffect(() => {
-    console.log(item);
-  }, [item]);
   const handleSingleData = (data) => {
     console.log(data);
     setSingleData(data);

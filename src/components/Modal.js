@@ -60,7 +60,6 @@ function Modal({ openModal, isModify, data }) {
         id: data.id,
         memo: inputValue,
       };
-      console.log(newData);
       handleToastShow('수정을 성공하였습니다.', true);
       dispatch(formActions.editItem(newData));
       openModal(false);
