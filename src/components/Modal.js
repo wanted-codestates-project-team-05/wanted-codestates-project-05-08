@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { BsFillPhoneVibrateFill, BsFillFileEarmarkTextFill } from 'react-icons/bs';
 import { GiBurningForest } from 'react-icons/gi';
 import { FaAddressCard } from 'react-icons/fa';
-import { useToastState } from '../hooks/useToastState';
 import { useDispatch } from 'react-redux';
 import { formActions } from '../store/form-slice';
 import { useNavigate } from 'react-router-dom';
@@ -165,7 +164,7 @@ const Background = styled.div`
   right: 0;
   margin: 0 auto;
   background: rgba(0, 0, 0, 0.4);
-  z-index: 10;
+  z-index: 20;
 `;
 const Wrapper = styled.div`
   ${({ theme }) => theme.common.flexCenterColumn}
