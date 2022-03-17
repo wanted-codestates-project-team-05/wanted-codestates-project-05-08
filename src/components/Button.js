@@ -11,11 +11,9 @@ const Button = () => {
   };
 
   return (
-    <>
-      <ButtonBox onClick={handleClickRoute}>
-        <span>+</span>
-      </ButtonBox>
-    </>
+    <ButtonBox onClick={handleClickRoute}>
+      <div>+</div>
+    </ButtonBox>
   );
 };
 
@@ -26,7 +24,6 @@ const ButtonBox = styled.button`
   width: ${({ theme }) => theme.fontSizes.big};
   height: ${({ theme }) => theme.fontSizes.big};
   border-radius: 50%;
-  line-height: ${({ theme }) => theme.fontSizes.big};
   font-size: ${theme.fontSizes.big};
   background-color: ${theme.colors.darkGreen};
   color: #fff;

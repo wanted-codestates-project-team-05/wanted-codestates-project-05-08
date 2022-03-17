@@ -163,12 +163,12 @@ const ItemBox = styled.ul`
   flex-direction: column;
   width: 100%;
   gap: 10px;
-  font-size: ${({ theme }) => theme.fontSizes.small};
+  font-size: 1rem;
   color: ${({ theme }) => theme.colors.black};
 `;
 
 const Item = styled.li`
-  padding: 2rem;
+  padding: 1rem;
   border: 1px solid ${({ theme }) => theme.colors.darkGreen};
   cursor: pointer;
   &:hover {

@@ -8,20 +8,27 @@ const SearchInp = (props) => {
   const localSearch = (e) => {
     setSearch(e.target.value);
   };
-
   const handleSearchKeyup = (e) => {
     if (e.keyCode === 13) {
       props.setSearchInputValue(search);
     }
   };
-
   const handleClickSearch = () => {
+    props.setSearchInputValue(search);
+  };
+  const handleBlur = () => {
     props.setSearchInputValue(search);
   };
 
   return (
     <>
-      <Input placeholder="검색어를 입력하세요." value={search} onChange={localSearch} onKeyUp={handleSearchKeyup} />
+      <Input
+        placeholder="검색어를 입력하세요."
+        value={search}
+        onChange={localSearch}
+        onKeyUp={handleSearchKeyup}
+        onBlur={handleBlur}
+      />
       <SearchIcon onClick={handleClickSearch}>
         <FaSearch width={14} color={theme.colors.darkGreen} onClick={handleClickSearch} />
       </SearchIcon>
