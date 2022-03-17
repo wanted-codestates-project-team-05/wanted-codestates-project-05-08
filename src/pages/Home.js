@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Selected from '../components/Selected';
 import SearchInp from '../components/SearchInp';
 import styled from 'styled-components';
@@ -6,15 +6,25 @@ import Button from '../components/Button';
 import { useSelector } from 'react-redux';
 import { FaHome, FaTree, FaPhone, FaStickyNote } from 'react-icons/fa';
 import theme from '../theme';
-
+import Modal from '../components/Modal';
 const Home = () => {
   const [searchkey, setSearchkey] = useState('name');
   const [searchInputValue, setSearchInputValue] = useState('');
+  const [isModal, setIsModal] = useState(false);
+  const [singleData, setSingleData] = useState();
   const dataList = useSelector((state) => state.form);
   const item = dataList.items.filter((it) => it[searchkey].includes(searchInputValue));
-
+  useEffect(() => {
+    console.log(item);
+  }, [item]);
+  const handleSingleData = (data) => {
+    console.log(data);
+    setSingleData(data);
+    setIsModal(true);
+  };
   return (
     <Container>
+      {isModal && <Modal openModal={setIsModal} data={singleData} isModify={true} />}
       <Menu>
         <Selected setSearchkey={setSearchkey} />
         <SearchInp setSearchInputValue={(item) => setSearchInputValue(item)} />
@@ -27,7 +37,7 @@ const Home = () => {
       {item.length !== 0 && (
         <ul className="item-list">
           {item.map((it, index) => (
-            <List key={index}>
+            <List key={index} onClick={() => handleSingleData(it)}>
               <div className="cont">
                 <FaTree width={24} color={theme.colors.darkGreen} />
                 <span className="cont-txt">{it.name}</span>
@@ -91,7 +101,7 @@ const List = styled.li`
   .cont {
     font-size: 1rem;
     line-height: 1.5;
-    .cont-txt{
+    .cont-txt {
       margin-left: 8px;
     }
   }
