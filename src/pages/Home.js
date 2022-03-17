@@ -27,7 +27,7 @@ const Home = ({handleToast}) => {
       </Menu>
       {item.length === 0 && (
         <NoneList>
-          <p className="none-txt">데이터가 없습니다 :(</p>
+          <p className="none-txt">데이터가 <br />없습니다 :(</p>
         </NoneList>
       )}
       {item.length !== 0 && (
@@ -54,22 +54,34 @@ const Home = ({handleToast}) => {
           ))}
         </ul>
       )}
-      <Button />
+      <div className="btn-container">
+          <Button />
+      </div>
     </Container>
   );
 };
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: column;
   max-width: 800px;
-  height: 100vh;
   position: relative;
   padding: 2rem;
   margin: 0 auto;
+  height: 100vh;
   box-sizing: border-box;
   font-size: ${({ theme }) => theme.fontSizes.small};
   .item-list {
     margin-top: 30px;
     width: 100%;
+  }
+  .btn-container {
+    z-index: 10;
+    align-self: end;
+    flex: none;
+    margin-top: auto;
+    position: sticky;
+    bottom: 60px;
   }
 `;
 
@@ -81,12 +93,15 @@ const Menu = styled.div`
 `;
 
 const NoneList = styled.div`
+  width: auto;
   position: fixed;
   top: 50%;
-  transform: translateY(-50%);
+  left: 50%;
+  transform: translate(-50%);
   .none-txtnone-txt {
-    height: 100px;
+    text-align: center;
     font-size: 1.2rem;
+    color: #2e2e2e;
   }
 `;
 
@@ -94,7 +109,7 @@ const List = styled.li`
   padding: 1.7rem;
   border-radius: 5px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  overflow: auto;
+  overflow-y: auto;
   cursor: pointer;
   .cont {
     font-size: 1rem;
@@ -106,6 +121,9 @@ const List = styled.li`
   }
   &:not(:first-child) {
     margin-top: 20px;
+  }
+  &:last-child {
+    margin-bottom: 20px;
   }
   &:hover {
     background-color: #d7e7de;
