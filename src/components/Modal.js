@@ -6,8 +6,10 @@ import { FaAddressCard } from 'react-icons/fa';
 import { useToastState } from '../hooks/useToastState';
 import { useDispatch } from 'react-redux';
 import { formActions } from '../store/form-slice';
-
+import { useNavigate } from 'react-router-dom';
 function Modal({ openModal, isModify, data }) {
+  const navigation = useNavigate();
+  console.log(data);
   const [inputValue, setInputValue] = useState('');
   const modalRef = useRef(null);
   const inputRef = useRef(null);
@@ -32,7 +34,7 @@ function Modal({ openModal, isModify, data }) {
   const handleSubmit = (e) => {
     if (inputValue) {
       const newData = {
-        id: data.휴양림_명칭,
+        id: data.전화번호,
         name: data.휴양림_명칭,
         address: data.휴양림_주소,
         number: data.전화번호,
@@ -41,6 +43,7 @@ function Modal({ openModal, isModify, data }) {
       dispatch(formActions.addItem(newData));
       handleToastShow('저장을 성공하였습니다.', true);
       openModal(false);
+      navigation('/');
     } else {
       handleToastShow('메모를 입력해주세요.', false);
     }
