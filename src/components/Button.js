@@ -6,9 +6,9 @@ import { useNavigate } from 'react-router-dom';
 const Button = () => {
   const navigate = useNavigate();
 
-  const handleClickRoute = () => { 
+  const handleClickRoute = () => {
     navigate('/list');
-  }
+  };
 
   return (
     <>
@@ -20,7 +20,9 @@ const Button = () => {
 };
 
 const ButtonBox = styled.button`
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: ${({ theme }) => theme.fontSizes.big};
   height: ${({ theme }) => theme.fontSizes.big};
   border-radius: 50%;
