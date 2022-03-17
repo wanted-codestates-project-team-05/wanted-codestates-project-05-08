@@ -9,7 +9,6 @@ import { formActions } from '../store/form-slice';
 import { useNavigate } from 'react-router-dom';
 function Modal({ openModal, isModify, data }) {
   const navigation = useNavigate();
-  console.log(data);
   const [inputValue, setInputValue] = useState('');
   const modalRef = useRef(null);
   const inputRef = useRef(null);
@@ -52,13 +51,17 @@ function Modal({ openModal, isModify, data }) {
   };
   const handleDelete = () => {
     handleToastShow('삭제를 성공하였습니다.', true);
-    console.log(data.id);
-    dispatch(formActions.removeItem({ id: data.id }));
-    // openModal(false);
+    dispatch(formActions.removeItem(data.id));
+    openModal(false);
   };
   const handleModify = () => {
     if (inputValue) {
+      const newData = {
+        id: data.id,
+        memo: inputValue,
+      };
       handleToastShow('수정을 성공하였습니다.', true);
+      dispatch(formActions.editItem(newData));
       openModal(false);
     } else {
       handleToastShow('메모를 입력해주세요.', false);
