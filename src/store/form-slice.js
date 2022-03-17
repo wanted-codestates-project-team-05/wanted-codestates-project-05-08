@@ -28,7 +28,7 @@ const formSlice = createSlice({
       const id = action.payload;
       state.items = state.items.filter((item) => item.id !== id);
       window.localStorage.setItem('form', JSON.stringify(state.items));
-      if (window.localStorage.getItem('form').length === 0) {
+      if (window.localStorage.getItem('form') === '[]') {
         window.localStorage.removeItem('form');
       }
     },

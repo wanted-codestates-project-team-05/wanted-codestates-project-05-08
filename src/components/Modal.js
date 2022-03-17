@@ -51,6 +51,7 @@ function Modal({ openModal, isModify, data }) {
   };
   const handleDelete = () => {
     handleToastShow('삭제를 성공하였습니다.', true);
+
     dispatch(formActions.removeItem(data.id));
     openModal(false);
   };
