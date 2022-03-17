@@ -14,7 +14,7 @@ const SearchInp = (props) => {
       props.setSearchInputValue(search);
     }
   };
-
+  
   const handleClickSearch = () => { 
     if (search.length >= 1) { 
       props.setSearchInputValue(search);
@@ -43,10 +43,12 @@ const Input = styled.input`
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 `;
 
+
 const SearchIcon = styled.div`
   position: absolute;
   right: 15px;
   cursor: pointer;
 `;
+
 
 export default SearchInp;

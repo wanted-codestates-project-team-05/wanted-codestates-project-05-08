@@ -103,5 +103,4 @@ const List = styled.li`
   }
 `;
 
-
 export default Home;
