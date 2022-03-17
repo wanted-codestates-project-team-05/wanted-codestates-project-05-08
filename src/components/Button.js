@@ -30,7 +30,7 @@ const ButtonBox = styled.button`
   border-radius: 50%;
   line-height: ${({ theme }) => theme.fontSizes.big};
   font-size: ${theme.fontSizes.big};
-  background-color: ${theme.colors.darkBlue};
+  background-color: ${theme.colors.darkGreen};
   color: #fff;
   cursor: pointer;
   z-index: 10;
