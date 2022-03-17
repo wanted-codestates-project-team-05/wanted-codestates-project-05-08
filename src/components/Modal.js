@@ -14,25 +14,32 @@ function Modal({ openModal, isModify, data }) {
   const inputRef = useRef(null);
   const handleToast = useToastState();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
   useEffect(() => {
     if (data.memo) setInputValue(data.memo);
   }, [data.memo]);
+
   const handleToastShow = (title, isSuccess) => {
     handleToast(title, isSuccess);
   };
-
   const changeHandle = (event) => {
     setInputValue(event.target.value);
   };
   const closeModal = (event) => {
     event.target === modalRef.current && openModal(false);
   };
-  const handleKeyPress = (event) => {
-    if (!isModify && inputValue && event.code === 'Enter') {
+  const handleKeyDown = (event) => {
+    if (event.code === 'Escape') {
+      openModal(false);
+    }
+    if (!isModify && event.code === 'Enter') {
       handleSubmit();
     }
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = () => {
     if (inputValue) {
       const newData = {
         id: data.전화번호,
@@ -75,33 +82,33 @@ function Modal({ openModal, isModify, data }) {
         <NameBox>
           <Name>
             <GiBurningForest className="icon" />
-            이름
+            <span>이름</span>
           </Name>
           <Contents>{data.name ? data.name : data.휴양림_명칭}</Contents>
         </NameBox>
         <NameBox>
           <Name>
             <FaAddressCard className="icon" />
-            주소
+            <span>주소</span>
           </Name>
           <Contents>{data.address ? data.address : data.휴양림_주소}</Contents>
         </NameBox>
         <NameBox>
           <Name>
             <BsFillPhoneVibrateFill className="icon" />
-            연락처
+            <span>연락처</span>
           </Name>
           <Contents>{data.number ? data.number : data.전화번호}</Contents>
         </NameBox>
         <Memo>
           <Name>
             <BsFillFileEarmarkTextFill className="icon" />
-            메모
+            <span>메모</span>
           </Name>
           <InputBox>
             <input
               ref={inputRef}
-              onKeyPress={handleKeyPress}
+              onKeyDown={handleKeyDown}
               type="text"
               onChange={(e) => changeHandle(e)}
               value={inputValue}
@@ -163,7 +170,7 @@ const NameBox = styled.div`
     font-size: ${({ theme }) => theme.fontSizes.xxSmall};
   }
 `;
-const Name = styled.h1`
+const Name = styled.div`
   color: ${({ theme }) => theme.colors.grey};
   display: flex;
   margin-bottom: 1rem;
@@ -171,6 +178,9 @@ const Name = styled.h1`
   .icon {
     margin-right: 0.2rem;
     color: ${({ theme }) => theme.colors.darkBlue};
+  }
+  span {
+    padding-top: 3px;
   }
 `;
 const Contents = styled.div`
