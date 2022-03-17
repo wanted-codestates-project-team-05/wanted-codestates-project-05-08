@@ -1,8 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import Modal from '../components/Modal';
-import ReactLoading from 'react-loading';
-import { ToastList } from '../components/ToastList';
 import { useNavigate } from 'react-router';
 import { getRecreationForestData, checkErrorStatus } from '../service/api';
 
@@ -23,7 +21,10 @@ const List = () => {
       const res = await getRecreationForestData(page, 10);
       const info = res.data;
       if (info.length) {
-        setData((prev) => [...prev, ...info]);
+        setTimeout(() => {
+          setData((prev) => [...prev, ...info]);
+          setIsLoading(false);
+        }, 1000);
       } else {
         loadRef.current.style.display = 'none';
       }
@@ -33,8 +34,8 @@ const List = () => {
         setError('');
       }, 1500);
       loadRef.current.style.display = 'none';
+      setIsLoading(false);
     }
-    setIsLoading(false);
   }, [page]);
 
   const onIntersect = useCallback(
@@ -54,6 +55,7 @@ const List = () => {
   useEffect(() => {
     if (loadRef.current) {
       observerRef.current = new IntersectionObserver(onIntersect, {
+        rootMargin: '-100px',
         threshold: 1,
       });
       observerRef.current.observe(loadRef.current);
@@ -109,10 +111,27 @@ const List = () => {
           <ErrorFeedBack>{error}</ErrorFeedBack>
         </FeedBackWrap>
       )}
-      <Load ref={loadRef}>{isLoading && <ReactLoading type={'spin'} color={'blue'} height={100} width={100} />}</Load>
+      <Load ref={loadRef}>{isLoading && <Circle />}</Load>
     </Container>
   );
 };
+
+const Circle = styled.div`
+  width: 100px;
+  height: 100px;
+  border-radius: 9999px;
+  border: 10px solid gray;
+  border-bottom: 10px solid blue;
+  animation: spin 1s linear infinite;
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  } ;
+`;
 
 const Container = styled.div`
   font-family: fantasy;
