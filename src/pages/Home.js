@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { FaHome, FaTree, FaPhone, FaStickyNote } from 'react-icons/fa';
 import theme from '../theme';
 import Modal from '../components/Modal';
-const Home = () => {
+const Home = ({handleToast}) => {
   const [searchkey, setSearchkey] = useState('name');
   const [searchInputValue, setSearchInputValue] = useState('');
   const [isModal, setIsModal] = useState(false);
@@ -20,7 +20,7 @@ const Home = () => {
   };
   return (
     <Container>
-      {isModal && <Modal openModal={setIsModal} data={singleData} isModify={true} />}
+      {isModal && <Modal openModal={setIsModal} data={singleData} isModify={true} handleToast={handleToast} />}
       <Menu>
         <Selected setSearchkey={setSearchkey} />
         <SearchInp setSearchInputValue={(item) => setSearchInputValue(item)} />

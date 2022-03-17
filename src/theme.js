@@ -34,6 +34,7 @@ const colors = {
   lightBlue: '#77fffd',
   darkBlue: '#00a999',
   red: '#ff6670',
+  lightRed: '#eb4d47',
 };
 
 // 자주 사용하는 스타일 속성
