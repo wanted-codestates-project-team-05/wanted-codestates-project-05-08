@@ -167,7 +167,8 @@ const Content = styled.div`
   svg {
     width: 20px;
     height: 100%;
-    margin-right: 5px;
+    margin-right: 10px;
+    fill: ${({ theme }) => theme.colors.darkGreen};
   }
 `;
 
