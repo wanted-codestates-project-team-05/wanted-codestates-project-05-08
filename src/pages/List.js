@@ -65,8 +65,7 @@ const List = () => {
 
   return (
     <Container>
-      <ToastList />
-      {isModal && <Modal openModal={setIsModal} data={singleData} />}
+      {isModal && <Modal openModal={setIsModal} data={singleData} isModify={false} />}
       <header className="head">
         <button onClick={() => navigate(-1)}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
