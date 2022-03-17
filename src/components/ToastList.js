@@ -8,8 +8,8 @@ export const ToastList = () => {
 
 	return (
 		<Warpper>
-			{ toastList.map((item) => (
-					<Toast message={item.message} isSuccess={item.success}/>
+			{ toastList.map((item,index) => (
+					<Toast key={index} message={item.message} isSuccess={item.success}/>
 				))}
 		</Warpper>
 	)
@@ -18,11 +18,15 @@ export const ToastList = () => {
 const Warpper = styled.div`
 	width: 15.625rem;
 	height: auto;
-	position: absolute;
-	right: 0;
-	top: 20px;
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
+	max-height: 100rem;
+	position: fixed;
+	right: 50%;
+	top: 1rem;
+	transform: translate(50%, 0);
 	z-index: 999;
+
+	@media (max-width: 860px) {
+		right: 1.5rem;
+		transform: translate(0, 0);
+	}
 `

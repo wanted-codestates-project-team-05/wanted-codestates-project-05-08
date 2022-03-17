@@ -7,12 +7,13 @@ import { useToastState } from '../hooks/useToastState';
 import { useDispatch } from 'react-redux';
 import { formActions } from '../store/form-slice';
 import { useNavigate } from 'react-router-dom';
-function Modal({ openModal, isModify, data }) {
+
+function Modal({ openModal, isModify, data, handleToast }) {
   const navigation = useNavigate();
   const [inputValue, setInputValue] = useState('');
   const modalRef = useRef(null);
   const inputRef = useRef(null);
-  const handleToast = useToastState();
+  const [check, setCheck] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -25,6 +26,16 @@ function Modal({ openModal, isModify, data }) {
   const handleToastShow = (title, isSuccess) => {
     handleToast(title, isSuccess);
   };
+  useEffect(() => {
+    const time = setTimeout(() => {
+      setCheck(false);
+    }, 3500)
+
+    return () => {
+      clearTimeout(time);
+    }
+  }, [check])
+
   const changeHandle = (event) => {
     setInputValue(event.target.value);
   };
@@ -53,7 +64,10 @@ function Modal({ openModal, isModify, data }) {
       openModal(false);
       navigation('/');
     } else {
-      handleToastShow('메모를 입력해주세요.', false);
+      if(!check){
+        handleToastShow('메모를 입력해주세요.', false);
+      }
+      setCheck(true);
     }
   };
   const handleDelete = () => {
@@ -61,6 +75,7 @@ function Modal({ openModal, isModify, data }) {
 
     dispatch(formActions.removeItem(data.id));
     openModal(false);
+    setCheck(false);
   };
   const handleModify = () => {
     if (inputValue) {
@@ -71,6 +86,7 @@ function Modal({ openModal, isModify, data }) {
       handleToastShow('수정을 성공하였습니다.', true);
       dispatch(formActions.editItem(newData));
       openModal(false);
+      setCheck(false);
     } else {
       handleToastShow('메모를 입력해주세요.', false);
     }

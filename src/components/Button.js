@@ -21,9 +21,9 @@ const Button = () => {
 
 const ButtonBox = styled.button`
   display: inline-block;
-  position: fixed;
-  bottom: 50px;
-  right: 60px;
+  position: sticky;
+  bottom: 70px;
+  left: calc(100% - 40px);
   width: ${({ theme }) => theme.fontSizes.big};
   height: ${({ theme }) => theme.fontSizes.big};
   margin: 0 auto;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Selected from '../components/Selected';
 import SearchInp from '../components/SearchInp';
 import styled from 'styled-components';
@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { FaHome, FaTree, FaPhone, FaStickyNote } from 'react-icons/fa';
 import theme from '../theme';
 import Modal from '../components/Modal';
-const Home = () => {
+const Home = ({handleToast}) => {
   const [searchkey, setSearchkey] = useState('name');
   const [searchInputValue, setSearchInputValue] = useState('');
   const [isModal, setIsModal] = useState(false);
@@ -20,7 +20,7 @@ const Home = () => {
   };
   return (
     <Container>
-      {isModal && <Modal openModal={setIsModal} data={singleData} isModify={true} />}
+      {isModal && <Modal openModal={setIsModal} data={singleData} isModify={true} handleToast={handleToast} />}
       <Menu>
         <Selected setSearchkey={setSearchkey} />
         <SearchInp setSearchInputValue={(item) => setSearchInputValue(item)} />
@@ -60,12 +60,13 @@ const Home = () => {
 };
 
 const Container = styled.div`
-  ${({ theme }) => theme.common.flexCenterColumn};
-  font-size: ${({ theme }) => theme.fontSizes.small};
   max-width: 800px;
+  height: 100vh;
   position: relative;
   padding: 2rem;
   margin: 0 auto;
+  box-sizing: border-box;
+  font-size: ${({ theme }) => theme.fontSizes.small};
   .item-list {
     margin-top: 30px;
     width: 100%;
@@ -93,11 +94,13 @@ const List = styled.li`
   padding: 1.7rem;
   border-radius: 5px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  overflow: auto;
   cursor: pointer;
   .cont {
     font-size: 1rem;
-    line-height: 1.5;
     .cont-txt {
+      vertical-align: 1px;
+      line-height: 1.8;
       margin-left: 8px;
     }
   }
