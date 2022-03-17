@@ -9,7 +9,8 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <List />
+      {/* <List /> */}
+      <Sample />
     </ThemeProvider>
   );
 }
