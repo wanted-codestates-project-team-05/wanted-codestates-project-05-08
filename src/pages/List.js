@@ -6,7 +6,7 @@ import { ToastList } from '../components/ToastList';
 import { useNavigate } from 'react-router';
 import { getRecreationForestData, checkErrorStatus } from '../service/api';
 
-const List = () => {
+const List = ({handleToast}) => {
   const navigate = useNavigate();
   const loadRef = useRef(null);
   const observerRef = useRef(null);
@@ -68,7 +68,7 @@ const List = () => {
 
   return (
     <Container>
-      {isModal && <Modal openModal={setIsModal} data={singleData} isModify={false} />}
+      {isModal && <Modal openModal={setIsModal} data={singleData} isModify={false} handleToast={handleToast}/>}
       <header className="head">
         <button onClick={() => navigate(-1)}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
